@@ -9,7 +9,7 @@ from urllib.parse import parse_qs
 
 html_source = """
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,7 +55,7 @@ html_source = """
 
 				<label for="data-input">Enter text data:</label>
 				<input type="text" id="data-input" name="data-input" required><br />
-				<button type="submit">Submit</button>
+				<button type="submit">送信</button>
 			</form>
 		</section>
 
