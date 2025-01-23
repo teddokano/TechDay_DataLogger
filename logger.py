@@ -131,6 +131,7 @@ html_source = """
 
                 <label for="tag">タグ番号手入力:</label>
                 <input id="tag" name="tag" type="number" value="===TAG_ID==="/>
+                <br />
 
                 <label for="demo">担当デモ選択:</label>
                 <select id="options" name="demo">
