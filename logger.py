@@ -93,8 +93,13 @@ html_source = """
             </form>
         </section>
         <section id="data-display">
+			Something to add
         </section>
     </main>
+    <footer>
+        <p>2025 Tsukimidai Communication Syndicate - Crawl Design</p>
+    </footer>
+
 </body>
 </html>
 """
