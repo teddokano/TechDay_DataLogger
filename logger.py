@@ -63,6 +63,16 @@ html_source = """
         button:hover {
             background-color: #0056b3;
         }
+        footer {
+            background-color: #007BFF;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -71,8 +81,7 @@ html_source = """
     </header>
     <main>
         <section id="selection-menu">
-            <h2>Tag ID</h2>
-            <h2>===TAG_ID===</h2>
+            <h2>Tag ID: ===TAG_ID===</h2>
         </section>
         <section id="selection-menu">
 			ポップアップメニューを選択し，必要があればテキスト入力欄を埋めて「送信」してください. 
