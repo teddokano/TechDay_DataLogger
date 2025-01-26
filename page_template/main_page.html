@@ -101,6 +101,7 @@
             職種：===JOB_TYPE===<br />
             担当製品：===PRODUCT===
         </section>
+		
         <form id="data-form">
             <section id="main-input">
                 <input id="tag_id" name="tag_id" type="hidden" value="===TAG_ID==="/>
@@ -153,13 +154,18 @@
                 <label for="data-input">メモ:</label>
                 <textarea id="data-input" name="data-input" rows="4" cols="50"></textarea><br />
                 <button type="submit">送信</button>
-            </section>
 
-			<section id="demo-info">
+<!--
 				<label for="tag_id">タグ番号手入力:</label>
 				<input id="tag_id" name="tag_id" type="number" value="===TAG_ID==="/>
 				<br />
+-->
 
+			</section>
+		</form>
+		
+		<form id="user-data">
+			<section id="demo-info">
 				<label for="demo_id">担当デモ選択:</label>
 				<select id="options" name="demo_id">
 					===DEMO_LIST===
@@ -170,6 +176,7 @@
 				<input id="user_name" name="user_name" value="===USER_NAME==="/>
 				</select>
 				<br />
+				<button type="submit">設定</button>
 			</section>
 		</form>
 
