@@ -44,8 +44,6 @@ with open( page_template_path, "r" ) as f:
 with open( error404_template_path, "r" ) as f:
 	html404_source 	= f.read()					
 
-
-
 class ActionHandler( BaseHTTPRequestHandler ):
 	def do_GET( self ):
 	
@@ -86,29 +84,15 @@ class ActionHandler( BaseHTTPRequestHandler ):
 				self.wfile.write( data )
 
 		else:
-			try:
-				tag_id	= cookies['tag_id'].value
-				tag_id	= query[ "tag" ][0]
-			except KeyError:
-				tag_id  = 9999
-
+			tag_id		= cookie_and_query( "tag_id",         9999,      query, cookies )
+			demo_id		= cookie_and_query( "demo_id",    "demo10",      query, cookies )
+			user_name	= cookie_and_query( "user_name",     "none",     query, cookies )
+			
 			if tag_id not in visitors.keys():
 				visitors[ tag_id ]	= Visitor( tag_id )
 
 			visitor	= visitors[ tag_id ]
 
-			try:
-				demo_id	= cookies['demo_id'].value
-				demo_id	= query[ "demo" ][0]
-			except KeyError:
-				demo_id  = "demo10"
-
-			try:
-				user_name	= cookies['user_name'].value
-				user_name	= query[ "user" ][0]
-			except KeyError:
-				user_name  = "none"
-				
 			try:
 				visitor.job_type	= query[ "job_type" ][0]
 				visitor.product		= query[ "product"  ][0]
@@ -118,10 +102,6 @@ class ActionHandler( BaseHTTPRequestHandler ):
     				
 			except:
 				pass
-
-			cookies['tag_id' ]		= tag_id
-			cookies['demo_id']		= demo_id
-			cookies['user_name']	= user_name
 
 			cookie_expire_seconds	= 3600 * 24 * 3
 			cookies[ "tag_id"    ][ "max-age" ] = cookie_expire_seconds
@@ -147,6 +127,20 @@ class ActionHandler( BaseHTTPRequestHandler ):
 				
 			h	= h.replace( '===IMAGE_FILE===', image_file )
 			self.wfile.write( h.encode("utf-8") )
+
+def cookie_and_query( key, default_value, q, c ):
+	try:
+		rv	= c[ key ].value
+	except:
+		rv	= None
+	
+	try:
+		rv	= q[ key ][0]
+	except:
+		rv	= rv if rv else default_value
+	
+	c[ key ]	= rv
+	return rv
 
 def demo_list( selected, length ):
 	str_list    = []
