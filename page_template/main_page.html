@@ -71,6 +71,8 @@
         }
 
     </style>
+	<script async src="logger.js"></script>
+
 </head>
 <body>
     <main>
@@ -82,12 +84,9 @@
             担当製品：犬小屋(デモ用固定値)
         </section>
 
-
-        <section id="main-input">
-
-
-            <form id="data-form">
-
+		<form id="data-form">
+			
+	        <section id="main-input">
 				<div style="display: flex; align-items: center;">
 					<label for="chance">採用可能性:</label><br />
 					<input type="range" id="chance" name="chance" min="0" max="3" value="0" orient="vertical" style="margin-right: 20px;">
@@ -143,32 +142,39 @@
                 <textarea id="data-input" name="data-input" rows="4" cols="50"></textarea><br />
                 <button type="submit">送信</button>
 
-        </section>
+			</section>
 
-        <section id="customize-input">
+			<section id="customize-input">
+				<label for="tag">タグ番号手入力:</label>
+				<input id="tag" name="tag" type="number" value="===TAG_ID==="/>
+				<br />
 
-                <label for="tag">タグ番号手入力:</label>
-                <input id="tag" name="tag" type="number" value="===TAG_ID==="/>
-                <br />
+				<label for="jobtype">職種手入力:</label>
+				<input id="jobtype" name="jobtype" value="===JOB_TYPE==="/>
+				<br />
 
-                <label for="demo">担当デモ選択:</label>
-                <select id="options" name="demo">
-                    ===DEMO_LIST===
-                </select>
+				<label for="product">担当製品手入力:</label>
+				<input id="product" name="product" value="===PRODUCT==="/>
+				<br />
 
-            </form>
-        </section>
-    <!--
+				<label for="demo">担当デモ選択:</label>
+				<select id="options" name="demo">
+					===DEMO_LIST===
+				</select>
+
+			</section>
+		</form>
+<!--
         <section id="data-display">
 			Something to add
         </section>
-	-->
+-->
     </main>
-    <!--
+<!--
     <footer>
         <p>2025 Tsukimidai Communication Syndicate - Crawl Design</p>
     </footer>
-    -->
+-->
 
 </body>
 </html>
