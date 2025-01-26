@@ -4,18 +4,16 @@ import http.server
 import socketserver
 import urllib.request
 import json
+import	os
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler
-from http.cookies import SimpleCookie
-
-import	os
-
 
 page_template_path		= "page_template/main_page.html"
 error404_template_path	= "page_template/404.html"
-default_image			= "img/default.png"
+image_folder			= "img"
+default_image			= f"{image_folder}/default.png"
 verbose					= True
 
 with open( page_template_path, "r" ) as f:
@@ -24,10 +22,17 @@ with open( page_template_path, "r" ) as f:
 with open( error404_template_path, "r" ) as f:
 	html404_source 	= f.read()					
 
-
 PORT = 8000
 
-class ExampleHandler( BaseHTTPRequestHandler ):
+class Visitor:
+	def __init__( self, id, job = "未設定", prod = "未設定" ):
+		self.tag_id		= id
+		self.job_type	= job
+		self.product	= prod
+
+visitors	= {}
+
+class ActionHandler( BaseHTTPRequestHandler ):
 	def do_GET( self ):
 	
 		cookies = SimpleCookie( self.headers.get( "Cookie" ) )
@@ -60,44 +65,65 @@ class ExampleHandler( BaseHTTPRequestHandler ):
 
 				print( f"ext_content = {ext_content[ os.path.splitext( parsed.path )[ 1 ][ 1: ] ]}" )
 		
-				self.send_response(200)
+				self.send_response( 200 )
 				self.send_header( "Content-Type", content_type )
 				self.end_headers()
 			
 				self.wfile.write( data )
 
 		else:
-
 			try:
 				tag_id	= cookies['tag_id'].value
-				tag_id  = query[ "tag" ][0]
+				tag_id	= query[ "tag" ][0]
 			except KeyError:
 				tag_id  = 9999
 
+			if tag_id not in visitors.keys():
+				visitors[ tag_id ]	= Visitor( tag_id )
+
+			visitor	= visitors[ tag_id ]
+
 			try:
 				demo_id	= cookies['demo_id'].value
-				demo_id  = query[ "demo" ][0]
+				demo_id	= query[ "demo" ][0]
 			except KeyError:
 				demo_id  = "demo10"
 
-			cookies['tag_id' ]	= tag_id
-			cookies['demo_id']	= demo_id
+			try:
+				user_name	= cookies['user_name'].value
+				user_name	= query[ "user" ][0]
+			except KeyError:
+				user_name  = "none"
+				
+			try:
+				visitor.job_type	= query[ "job_type" ][0]
+				visitor.product		= query[ "product" ][0]
+			except:
+				pass
+
+			cookies['tag_id' ]		= tag_id
+			cookies['demo_id']		= demo_id
+			cookies['user_name']	= user_name
 
 			cookie_expire_seconds	= 3600 * 24 * 3
-			cookies[ "tag_id"  ][ "max-age" ] = cookie_expire_seconds
-			cookies[ "demo_id" ][ "max-age" ] = cookie_expire_seconds
+			cookies[ "tag_id"    ][ "max-age" ] = cookie_expire_seconds
+			cookies[ "demo_id"   ][ "max-age" ] = cookie_expire_seconds
+			cookies[ "user_name" ][ "max-age" ] = cookie_expire_seconds * 365
 
-			self.send_response(200)
+			self.send_response( 200 )
 			self.send_header( "Set-Cookie", f"tag_id={tag_id};   path=/" )
 			self.send_header( "Set-Cookie", f"demo_id={demo_id}; path=/" )
-
+			self.send_header( "Set-Cookie", f"user_name={user_name}; path=/" )
 			self.send_header( "Content-Type", "text/html" )
 			self.end_headers()
 			
 			h	= html_source.replace( '===TAG_ID===', str( tag_id ) )
 			h	= h.replace( '===DEMO_LIST===', demo_list( demo_id, 18 ) )
+			h	= h.replace( '===USER_NAME===', user_name )
+			h	= h.replace( '===JOB_TYPE===', visitor.job_type )
+			h	= h.replace( '===PRODUCT===', visitor.product )
 
-			image_file	= f"img/{tag_id}.jpg"
+			image_file	= f"{image_folder}/{tag_id}.jpg"
 			if not os.path.isfile( image_file ):
 				image_file	= default_image
 				
@@ -118,12 +144,10 @@ def demo_list( selected, length ):
 
 	return "\n".join( str_list )
 
-
 def main():
-	with socketserver.TCPServer(("", PORT), ExampleHandler) as httpd:		
+	with socketserver.TCPServer( ( "", PORT ), ActionHandler ) as httpd:		
 		print("serving at port", PORT)
 		httpd.serve_forever()
-
 
 ext_content	= {	"css" : "text/css",
 				"html": "text/html",

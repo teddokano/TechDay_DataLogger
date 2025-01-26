@@ -78,16 +78,14 @@
             Tag ID: ===TAG_ID===
 			<br />
             <img src====IMAGE_FILE=== style="width: 90%;" alt="Image"><br />
-            職種：製品企画(デモ用固定値)<br />
-            担当製品：犬小屋(デモ用固定値)
+			職種：===JOB_TYPE===<br />
+			担当製品：===PRODUCT===
         </section>
 
 
-        <section id="main-input">
-
-
-            <form id="data-form">
-
+		<form id="data-form">
+			<section id="main-input">
+				<input id="tag" name="tag" type="hidden" value="===TAG_ID==="/>
 				<div style="display: flex; align-items: center;">
 					<label for="chance">採用可能性:</label><br />
 					<input type="range" id="chance" name="chance" min="0" max="3" value="0" orient="vertical" style="margin-right: 20px;">
@@ -143,10 +141,9 @@
                 <textarea id="data-input" name="data-input" rows="4" cols="50"></textarea><br />
                 <button type="submit">送信</button>
 
-        </section>
-
-        <section id="customize-input">
-
+			</section>
+			
+			<section id="demo-info">
                 <label for="tag">タグ番号手入力:</label>
                 <input id="tag" name="tag" type="number" value="===TAG_ID==="/>
                 <br />
@@ -155,9 +152,34 @@
                 <select id="options" name="demo">
                     ===DEMO_LIST===
                 </select>
+				<br />
+
+				<label for="user">担当者名:</label>
+				<input id="user" name="user" value="===USER_NAME==="/>
+				</select>
+				<br />
+			</section>
+		</form>
+				
+		<form id="tag-update">
+			<section id="visitor-info">
+				<section id="demo-input">
+					<label for="job_type">Tag ID:</label>
+					<input id="tag" name="tag" type="number" value="===TAG_ID==="/ readonly>
+					<br />
+
+					<label for="job_type">職種:</label>
+					<input id="job_type" name="job_type" value="===JOB_TYPE==="/>
+					<br />
+
+					<label for="product">担当製品:</label>
+					<input id="product" name="product" value="===PRODUCT==="/>
+					<br />
+					<button type="submit">設定</button>
+					</form>
+				</section>
 
             </form>
-        </section>
     <!--
         <section id="data-display">
 			Something to add
