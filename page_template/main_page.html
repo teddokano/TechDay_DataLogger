@@ -62,6 +62,13 @@
             width: 100%;
             bottom: 0;
         }
+        input[type=range][orient="vertical"] {
+            writing-mode: bt-lr; /* IE */
+            -webkit-appearance: slider-vertical; /* WebKit */
+            width: 8px;
+            height: 175px;
+            padding: 0 5px;
+        }
 
     </style>
 </head>
@@ -69,7 +76,8 @@
     <main>
         <section id="selection-menu">
             Tag ID: ===TAG_ID===
-            <img src="img/1234.jpg" style="width: 90%;" alt="Image"><br />
+			<br />
+            <img src====IMAGE_FILE=== style="width: 90%;" alt="Image"><br />
             職種：製品企画(デモ用固定値)<br />
             担当製品：犬小屋(デモ用固定値)
         </section>
@@ -77,22 +85,23 @@
 
         <section id="main-input">
 
+
             <form id="data-form">
-                <label for="chance">採用可能性:</label>
-                <select id="chance" name="chance">
-                    <option value="big">大</option>
-                    <option value="mid">中</option>
-                    <option value="small">小</option>
-                </select>
 
+				<div style="display: flex; align-items: center;">
+					<label for="chance">採用可能性:</label><br />
+					<input type="range" id="chance" name="chance" min="0" max="3" value="0" orient="vertical" style="margin-right: 20px;">
+					<label for="interest" style="margin-left: 20px;">技術的関心:</label>
+					<input type="range" id="interest" name="interest" min="0" max="3" value="0" orient="vertical">
+				</div>
+                <div>
+                    <label>周辺部品ソケット:</label><br>
+                    <input type="radio" id="peripheral1" name="peripheralGroup" value="yes">
+                    <label for="peripheral1">あり</label><br>
+                    <input type="radio" id="peripheral2" name="peripheralGroup" value="no">
+                    <label for="peripheral2">なし</label><br>
 
-                <label for="interest">技術的関心:</label>
-                <select id="interest" name="interest">
-                    <option value="big">大</option>
-                    <option value="mid">中</option>
-                    <option value="small">小</option>
-                </select>
-
+                </div>
 
                 <label for="options">Choose an option:</label>
                 <select id="options" name="options">
@@ -101,11 +110,38 @@
                     <option value="option3">Option 3</option>
                 </select>
 
+                <div>
+                    <label>AR:</label><br>
+                    <input type="checkbox" id="別途デモ実施" name="別途デモ実施">
+                    <label for="checkbox1">別途デモ実施</label><br>
+                    <input type="checkbox" id="ハンズオン実施" name="ハンズオン実施">
+                    <label for="checkbox1">ハンズオン実施</label><br>
+                    <input type="checkbox" id="技術セミナ開催" name="技術セミナ開催">
+                    <label for="checkbox1">技術セミナ開催</label><br>
+                    <input type="checkbox" id="資料送付" name="資料送付">
+                    <label for="checkbox2">資料送付</label><br>
+                    <input type="checkbox" id="価格情報提供" name="価格情報提供">
+                    <label for="checkbox3">価格情報提供</label><br>
+                    <input type="checkbox" id="面談" name="面談">
+                    <label for="checkbox4">面談</label><br>
+                    <input type="checkbox" id="checkbox5" name="checkbox5">
+                    <label for="checkbox5">Checkbox 5</label><br>
+                    <input type="checkbox" id="checkbox6" name="checkbox6">
+                    <label for="checkbox6">Checkbox 6</label><br>
+                    <input type="checkbox" id="checkbox7" name="checkbox7">
+                    <label for="checkbox7">Checkbox 7</label><br>
+                    <input type="checkbox" id="checkbox8" name="checkbox8">
+                    <label for="checkbox8">Checkbox 8</label><br>
+                    <input type="checkbox" id="checkbox9" name="checkbox9">
+                    <label for="checkbox9">Checkbox 9</label><br>
+                    <input type="checkbox" id="checkbox10" name="checkbox10">
+                    <label for="checkbox10">Checkbox 10</label><br>
+                </div>
+
 
                 <label for="data-input">メモ:</label>
-                <input type="text" id="data-input" name="data-input">
+                <textarea id="data-input" name="data-input" rows="4" cols="50"></textarea><br />
                 <button type="submit">送信</button>
-
 
         </section>
 

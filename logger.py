@@ -12,10 +12,18 @@ from http.cookies import SimpleCookie
 
 import	os
 
-page_template_path	= "page_template/main_page.html"
+
+page_template_path		= "page_template/main_page.html"
+error404_template_path	= "page_template/404.html"
+default_image			= "img/default.png"
+verbose					= True
 
 with open( page_template_path, "r" ) as f:
 	html_source 	= f.read()					
+
+with open( error404_template_path, "r" ) as f:
+	html404_source 	= f.read()					
+
 
 PORT = 8000
 
@@ -26,19 +34,21 @@ class ExampleHandler( BaseHTTPRequestHandler ):
 		parsed	= urlparse( self.path )
 		query	= parse_qs( parsed.query )
 
-		print( f"parsed = {parsed}" )
-		print( f"parsed.path = {parsed.path}" )
-		print( f"query = {query}" )
+
+		if ( verbose ):
+			print( f"parsed = {parsed}" )
+			print( f"parsed.path = {parsed.path}" )
+			print( f"query = {query}" )
 		
-		if parsed.path != "/":
-			print( f"file is there = {os.path.isfile( parsed.path[ 1: ] )}" )
-			print( f"os.path.splitext() = {os.path.splitext( parsed.path )}" )
+		if parsed.path != "/action":
 			
 			file_path	= parsed.path[ 1: ]
 			
 			if not os.path.isfile( file_path ):
 				self.send_response( 404 )
-				self.wfile.write( f"file not found: \"{file_path}\"" )
+				self.send_header( "Content-Type", "text/html" )
+				self.end_headers()
+				self.wfile.write( html404_source.encode("utf-8") )
 			else:
 				try:
 					content_type = {ext_content[ os.path.splitext( parsed.path )[ 1 ][ 1: ] ]}
@@ -86,6 +96,12 @@ class ExampleHandler( BaseHTTPRequestHandler ):
 			
 			h	= html_source.replace( '===TAG_ID===', str( tag_id ) )
 			h	= h.replace( '===DEMO_LIST===', demo_list( demo_id, 18 ) )
+
+			image_file	= f"img/{tag_id}.jpg"
+			if not os.path.isfile( image_file ):
+				image_file	= default_image
+				
+			h	= h.replace( '===IMAGE_FILE===', image_file )
 			self.wfile.write( h.encode("utf-8") )
 
 def demo_list( selected, length ):
