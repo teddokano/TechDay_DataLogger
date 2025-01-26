@@ -10,17 +10,15 @@ from urllib.parse import parse_qs
 from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler
 
+import	pickle
+
 page_template_path		= "page_template/main_page.html"
 error404_template_path	= "page_template/404.html"
 image_folder			= "img"
 default_image			= f"{image_folder}/default.png"
 verbose					= True
 
-with open( page_template_path, "r" ) as f:
-	html_source 	= f.read()					
-
-with open( error404_template_path, "r" ) as f:
-	html404_source 	= f.read()					
+visitors_data_file		= "data/visitors.pkl"
 
 PORT = 8000
 
@@ -30,7 +28,23 @@ class Visitor:
 		self.job_type	= job
 		self.product	= prod
 
-visitors	= {}
+
+try:
+	with open( visitors_data_file, "rb" ) as f:
+		visitors	= pickle.load( f )
+		print( f"previous '{visitors_data_file}' has been loaded" )
+except:
+	visitors	= {}
+
+print( visitors )
+
+with open( page_template_path, "r" ) as f:
+	html_source 	= f.read()					
+
+with open( error404_template_path, "r" ) as f:
+	html404_source 	= f.read()					
+
+
 
 class ActionHandler( BaseHTTPRequestHandler ):
 	def do_GET( self ):
@@ -97,7 +111,11 @@ class ActionHandler( BaseHTTPRequestHandler ):
 				
 			try:
 				visitor.job_type	= query[ "job_type" ][0]
-				visitor.product		= query[ "product" ][0]
+				visitor.product		= query[ "product"  ][0]
+				
+				with open( visitors_data_file, "wb" ) as f:
+					pickle.dump( visitors, f )
+    				
 			except:
 				pass
 
