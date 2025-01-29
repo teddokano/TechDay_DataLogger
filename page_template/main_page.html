@@ -133,7 +133,7 @@
                     <label for="chance">採用可能性: <span id="chance-txt">無</span></label><br />
                     <input type="range" id="chance" name="chance" min="0" max="3" value="0" orient="vertical" style="margin-right: 20px;" onchange = "sliderVal( this )">
                     <label for="interest" style="margin-left: 20px;">技術的関心: <span id="interest-txt">無</span></label>
-                    <input type="range" id="interest" name="interest" min="0" max="3" value="0" orient="vertical" onchange = "sliderVal( this  )">
+                    <input type="range" id="interest" name="interest" min="0" max="3" value="0" orient="vertical" onchange = "sliderVal( this )">
                 </div>
                 <div>
                     <label>周辺部品ソケット:</label><br>
@@ -225,18 +225,14 @@
 
 		<section id="view-controls">
 			<label for="view-option">画面表示オプション</label>
-			<select id="view-option">
+			<select id="view-option" onchange = "viewControl( this.value )">
 				<option value="main-input" selected>説明員入力</option>
 				<option value="demo-info"          >デモ担当者設定</option>
 				<option value="visitor-info"       >タグ設定</option>
 			</select>
 			<script>
-				let viewSelElement = document.getElementById( "view-option" );
-				viewSelElement.addEventListener( "change", () => {
+				function viewControl( selected_item ) {
 					let	list	= [ "main-input", "demo-info", "visitor-info" ];
-					let	selected_item	= viewSelElement.value;
-					
-					console.log( "new setting = " + selected_item );
 					
 					list.forEach( ( item ) => {
 						let element = document.getElementById( item );
@@ -247,7 +243,7 @@
 							element.style.display = 'none';
 						}						
 					} )
-				} );
+				}
 			</script>			
 		</section>
 	</main>
