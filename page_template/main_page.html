@@ -131,9 +131,9 @@
 				<input id="tag_id" name="tag_id" type="hidden" value="===TAG_ID==="/>
                 <div style="display: flex; align-items: center;">
                     <label for="chance">採用可能性: <span id="chance-txt">無</span></label><br />
-                    <input type="range" id="chance" name="chance" min="0" max="3" value="0" orient="vertical" style="margin-right: 20px;">
+                    <input type="range" id="chance" name="chance" min="0" max="3" value="0" orient="vertical" style="margin-right: 20px;" onchange = "sliderVal( this )">
                     <label for="interest" style="margin-left: 20px;">技術的関心: <span id="interest-txt">無</span></label>
-                    <input type="range" id="interest" name="interest" min="0" max="3" value="0" orient="vertical">
+                    <input type="range" id="interest" name="interest" min="0" max="3" value="0" orient="vertical" onchange = "sliderVal( this  )">
                 </div>
                 <div>
                     <label>周辺部品ソケット:</label><br>
@@ -142,7 +142,16 @@
                     <input type="radio" id="peripheral2" name="peripheralGroup" value="no">
                     <label for="peripheral2">なし</label><br>
                 </div>
-                <label for="options">Choose an option:</label>
+
+				<script>
+					function sliderVal( obj ) {
+						let	list	= [ "無", "小", "中", "大" ];
+						document.getElementById( obj.name + "-txt" ).innerText = list[ obj.value ];
+					}
+				</script>			
+
+				
+				<label for="options">Choose an option:</label>
                 <select id="options" name="options">
                     <option value="option1">Option 1</option>
                     <option value="option2">Option 2</option>
