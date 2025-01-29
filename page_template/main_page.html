@@ -118,7 +118,7 @@
         <h1>TechDay Data Logger</h1>
     </header>
     <main>
-        <section id="selection-menu">
+        <section id="tag-info">
             Tag ID: ===TAG_ID===
             <br />
             <img src====IMAGE_FILE=== style="width: 90%;" alt="Image"><br />
@@ -243,6 +243,14 @@
 							element.style.display = 'none';
 						}						
 					} )
+					
+					let	tag_info	= document.getElementById( "tag-info" );
+					
+					if ( "demo-info" == selected_item ) {
+						tag_info.style.display = 'none';
+					} else {
+						tag_info.style.display = 'block';
+					}
 				}
 			</script>			
 		</section>
