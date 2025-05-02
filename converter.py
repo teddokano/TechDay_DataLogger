@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import	os
+import	pandas as pd
+import	openpyxl
 import	pickle
 
 access_log_folder	= "access_log/"
@@ -29,9 +31,20 @@ for f in log_files:
 
 print( "logs are loaded" )
 
-for i in logs:
-    print( i.time, end = " " )
-    print( i.ip_addr, end = " " )
-    print( i.query )
+total_log	= pd.DataFrame()
 
+for i in logs:
+	print( i.time, end = " " )
+	print( i.ip_addr, end = " " )
+	print( i.query )
+	
+	d	= { "time": i.time, "ip_addr": i.ip_addr }
+	d.update( i.query )
+	
+	total_log	= pd.concat( [total_log, pd.DataFrame( d ) ] )
+	
 print( "done" )
+
+print( total_log )
+
+total_log.to_excel('pandas_to_excel.xlsx', sheet_name='new_sheet_name')
