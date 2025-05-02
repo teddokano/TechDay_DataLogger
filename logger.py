@@ -23,8 +23,8 @@ visitors_data_file		= "data/visitors.pkl"
 
 PORT = 8000
 
-access_log_file	= "data/access_log.pkl"
-access_log		= []
+access_log_folder	= "access_log/"
+access_log			= []
 
 class Access:
     def __init__( self, query, time, ip_addr ):
@@ -97,10 +97,14 @@ class ActionHandler( BaseHTTPRequestHandler ):
 			
 			print( any( query ) )
 			
-			access_log.append( Access( query, datetime.datetime.now(), self.client_address[0] ) )
-			
-			with open( access_log_file, "wb" ) as f:
-				pickle.dump( access_log, f )
+			try:
+#				filename    = f"{access_log_folder}{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f.log')}"
+				print( access_log_folder + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f.log") )
+				with open( access_log_folder + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f.log"), "wb" ) as f:
+					pickle.dump( Access( query, datetime.datetime.now(), self.client_address[0] ), f )
+					
+			except:
+			    print( "########## access loggging error" )
 
 			tag_id		= cookie_and_query( "tag_id",         9999,      query, cookies )
 			demo_id		= cookie_and_query( "demo_id",    "demo10",      query, cookies )
