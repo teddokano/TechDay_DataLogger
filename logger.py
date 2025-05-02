@@ -11,6 +11,7 @@ from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler
 
 import	pickle
+import	datetime
 
 page_template_path		= "page_template/main_page.html"
 error404_template_path	= "page_template/404.html"
@@ -22,13 +23,21 @@ visitors_data_file		= "data/visitors.pkl"
 
 PORT = 8000
 
+access_log_folder	= "access_log/"
+access_log			= []
+
+class Access:
+    def __init__( self, query, time, ip_addr ):
+        self.query		= query
+        self.time		= time
+        self.ip_addr	= ip_addr
+
 class Visitor:
 	def __init__( self, id, job = "未設定", prod = "未設定" ):
 		self.tag_id		= id
 		self.job_type	= job
 		self.product	= prod
-
-
+		
 try:
 	with open( visitors_data_file, "rb" ) as f:
 		visitors	= pickle.load( f )
@@ -51,14 +60,13 @@ class ActionHandler( BaseHTTPRequestHandler ):
 		parsed	= urlparse( self.path )
 		query	= parse_qs( parsed.query )
 
-
 		if ( verbose ):
+			print( f"========== verbose print ==========" )
 			print( f"parsed = {parsed}" )
 			print( f"parsed.path = {parsed.path}" )
 			print( f"query = {query}" )
 		
 		if parsed.path != "/action":
-			
 			file_path	= parsed.path[ 1: ]
 			
 			if not os.path.isfile( file_path ):
@@ -84,6 +92,20 @@ class ActionHandler( BaseHTTPRequestHandler ):
 				self.wfile.write( data )
 
 		else:
+		
+			print( "********** got access **********" )
+			
+			print( any( query ) )
+			
+			try:
+#				filename    = f"{access_log_folder}{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f.log')}"
+				print( access_log_folder + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f.log") )
+				with open( access_log_folder + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f.log"), "wb" ) as f:
+					pickle.dump( Access( query, datetime.datetime.now(), self.client_address[0] ), f )
+					
+			except:
+			    print( "########## access loggging error" )
+
 			tag_id		= cookie_and_query( "tag_id",         9999,      query, cookies )
 			demo_id		= cookie_and_query( "demo_id",    "demo10",      query, cookies )
 			user_name	= cookie_and_query( "user_name",     "none",     query, cookies )
