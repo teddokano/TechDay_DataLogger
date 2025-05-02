@@ -219,8 +219,10 @@
 				<label for="product">担当製品:</label>
 				<input id="product" name="product" value="===PRODUCT==="/>
 				<br />
+				<input type="file" id="environment" capture="environment" accept="image/*" >
+				<br />
 				<button type="submit">設定</button>
-			</form>
+			</form>			
 		</section>
 
 		<section id="view-controls">
@@ -232,7 +234,7 @@
 			</select>
 			<script>
 				function viewControl( selected_item ) {
-					let	list	= [ "mfin-input", "demo-info", "visitor-info" ];
+					let	list	= [ "main-input", "demo-info", "visitor-info" ];
 					
 					list.forEach( ( item ) => {
 						let element = document.getElementById( item );
@@ -257,7 +259,7 @@
 	</main>
 <!--
 	<footer>
-        &copy; 2023 TechDay Data Logger
+        &copy; 2025 TechDay Data Logger
     </footer>
 -->
 </body>
