@@ -28,8 +28,8 @@ access_log			= []
 
 class Access:
     def __init__( self, query, time, ip_addr ):
-        self.query	= query
-        self.time	= time
+        self.query		= query
+        self.time		= time
         self.ip_addr	= ip_addr
 
 class Visitor:
