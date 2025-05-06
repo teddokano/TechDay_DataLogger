@@ -111,6 +111,17 @@
 		#visitor-info {
 			display:none;
 		}
+		
+		table {
+			margin: 5px 0;
+			border-collapse: separate; /* セル間にスペースを確保する */
+			border-spacing: 10px;      /* 各セルの間に 10px のスペースを追加 */
+		}
+		
+		table td {
+			vertical-align: top;
+		}
+		
     </style>	
 </head>
 <body>
@@ -136,11 +147,30 @@
                     <input type="range" id="interest" name="interest" min="0" max="3" value="0" orient="vertical" onchange = "sliderVal( this )">
                 </div>
                 <div>
-                    <label>周辺部品ソケット:</label><br>
-                    <input type="radio" id="peripheral1" name="peripheralGroup" value="yes">
-                    <label for="peripheral1">あり</label><br>
-                    <input type="radio" id="peripheral2" name="peripheralGroup" value="no">
-                    <label for="peripheral2">なし</label><br>
+					<table>
+						<tr>
+							<td>
+								<input type="radio" id="peripheral1" name="peripheralGroup" value="yes">
+							</td>
+							<td>
+								<label for="peripheral1">あり</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="radio" id="peripheral2" name="peripheralGroup" value="no">
+							</td>
+							<td>
+								<label for="peripheral2">なし</label>
+							</td>
+						</tr>
+					</table>	
+					<!---
+					<input type="radio" id="peripheral1" name="peripheralGroup" value="yes">
+					<label for="peripheral1">あり</label>
+					<input type="radio" id="peripheral2" name="peripheralGroup" value="no">
+					<label for="peripheral2">なし</label><br>
+					-->
                 </div>
 
 				<script>
@@ -157,34 +187,134 @@
                     <option value="option2">Option 2</option>
                     <option value="option3">Option 3</option>
                 </select>
-                <div>
-                    <label>AR:</label><br>
-                    <input type="checkbox" id="別途デモ実施" name="別途デモ実施">
-                    <label for="checkbox1">別途デモ実施</label><br>
-                    <input type="checkbox" id="ハンズオン実施" name="ハンズオン実施">
-                    <label for="checkbox1">ハンズオン実施</label><br>
-                    <input type="checkbox" id="技術セミナ開催" name="技術セミナ開催">
-                    <label for="checkbox1">技術セミナ開催</label><br>
-                    <input type="checkbox" id="資料送付" name="資料送付">
-                    <label for="checkbox2">資料送付</label><br>
-                    <input type="checkbox" id="価格情報提供" name="価格情報提供">
-                    <label for="checkbox3">価格情報提供</label><br>
-                    <input type="checkbox" id="面談" name="面談">
-                    <label for="checkbox4">面談</label><br>
-                    <input type="checkbox" id="checkbox5" name="checkbox5">
-                    <label for="checkbox5">Checkbox 5</label><br>
-                    <input type="checkbox" id="checkbox6" name="checkbox6">
-                    <label for="checkbox6">Checkbox 6</label><br>
-                    <input type="checkbox" id="checkbox7" name="checkbox7">
-                    <label for="checkbox7">Checkbox 7</label><br>
-                    <input type="checkbox" id="checkbox8" name="checkbox8">
-                    <label for="checkbox8">Checkbox 8</label><br>
-                    <input type="checkbox" id="checkbox9" name="checkbox9">
-                    <label for="checkbox9">Checkbox 9</label><br>
-                    <input type="checkbox" id="checkbox10" name="checkbox10">
-                    <label for="checkbox10">Checkbox 10</label><br>
-                </div>
-                <label for="data-input">メモ:</label>
+				<div>
+					<label>AR:</label><br>
+					<table>
+						<tr>
+							<td>
+								<input type="checkbox" id="別途デモ実施" name="別途デモ実施">
+							</td>
+							<td>
+								<label for="checkbox1">別途デモ実施</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="ハンズオン実施" name="ハンズオン実施">
+							</td>
+							<td>
+								<label for="checkbox1">ハンズオン実施</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="技術セミナ開催" name="技術セミナ開催">
+							</td>
+							<td>
+								<label for="checkbox1">技術セミナ開催</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="資料送付" name="資料送付">
+							</td>
+							<td>
+								<label for="checkbox2">資料送付</label>
+							</td>
+						</tr>			
+						<tr>
+							<td>
+								<input type="checkbox" id="価格情報提供" name="価格情報提供">
+							</td>
+							<td>
+								<label for="checkbox3">価格情報提供</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="面談" name="面談">
+							</td>
+							<td>
+								<label for="checkbox4">面談</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								
+								<input type="checkbox" id="checkbox5" name="checkbox5">
+							</td>
+							<td>
+								<label for="checkbox5">Checkbox 5</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="checkbox6" name="checkbox6">
+							</td>
+							<td>
+								<label for="checkbox6">Checkbox 6</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="checkbox7" name="checkbox7">
+							</td>
+							<td>
+								<label for="checkbox7">Checkbox 7</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="checkbox8" name="checkbox8">
+							</td>
+							<td>
+								<label for="checkbox8">Checkbox 8</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="checkbox9" name="checkbox9">
+							</td>
+							<td>
+								<label for="checkbox9">Checkbox 9</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="checkbox10" name="checkbox10">
+							</td>
+							<td>
+								<label for="checkbox10">Checkbox 10</label>
+							</td>
+						</tr>
+					</table>
+					<!---	
+					
+					<label for="checkbox1">別途デモ実施</label><br>
+					<input type="checkbox" id="ハンズオン実施" name="ハンズオン実施">
+					<label for="checkbox1">ハンズオン実施</label><br>
+					<input type="checkbox" id="技術セミナ開催" name="技術セミナ開催">
+					<label for="checkbox1">技術セミナ開催</label><br>
+					<input type="checkbox" id="資料送付" name="資料送付">
+					<label for="checkbox2">資料送付</label><br>
+					<input type="checkbox" id="価格情報提供" name="価格情報提供">
+					<label for="checkbox3">価格情報提供</label><br>
+					<input type="checkbox" id="面談" name="面談">
+					<label for="checkbox4">面談</label><br>
+					<input type="checkbox" id="checkbox5" name="checkbox5">
+					<label for="checkbox5">Checkbox 5</label><br>
+					<input type="checkbox" id="checkbox6" name="checkbox6">
+					<label for="checkbox6">Checkbox 6</label><br>
+					<input type="checkbox" id="checkbox7" name="checkbox7">
+					<label for="checkbox7">Checkbox 7</label><br>
+					<input type="checkbox" id="checkbox8" name="checkbox8">
+					<label for="checkbox8">Checkbox 8</label><br>
+					<input type="checkbox" id="checkbox9" name="checkbox9">
+					<label for="checkbox9">Checkbox 9</label><br>
+					<input type="checkbox" id="checkbox10" name="checkbox10">
+					<label for="checkbox10">Checkbox 10</label><br>
+					-->
+				</div>                <label for="data-input">メモ:</label>
                 <textarea id="data-input" name="data-input" rows="4" cols="50"></textarea><br />
                 <button type="submit">送信</button>
 			</form>
